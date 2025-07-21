@@ -1,0 +1,35 @@
+{{#if success_msg}}
+
+    <div class="msg-wrapper">
+
+        <div class="msg success">{{success_msg}}</div>
+        
+    </div>
+
+{{/if}}
+
+{{#if error_msg}}
+
+    <div class="msg-wrapper">
+
+        <div class="msg error">{{error_msg}}</div>
+        
+    </div>
+
+{{/if}}
+
+<script>
+
+    const msg = document.querySelector(".msg-wrapper")
+
+    if(msg){
+
+        setTimeout(()=>{
+            
+            msg.classList.add("msg-hidden")
+            
+        }, 6000)
+
+    }
+    
+</script>

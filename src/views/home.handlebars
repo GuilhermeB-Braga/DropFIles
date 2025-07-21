@@ -1,0 +1,68 @@
+<main>
+
+    <div class="container">
+
+        <h1 class="container-title">Acesse ou crie uma sessão</h1>
+
+        <div class="forms-wrapper">
+
+            <form class="form new-session" action="/session" method="post">
+                
+                <div class="input-wrapper">
+
+                    <label for="sessionName">Iniciar uma nova sessão</label>
+
+                    <div class="wrapper">
+
+                        <input name="sessionName" type="text" id="sessionName" placeholder="Defina o nome da sessão" minlength="6" maxlength="32" required>
+                    
+                        <button class="btn-grad">
+
+                            <i class="ph-bold ph-plus"></i>
+
+                            Nova sessão
+                            
+                        </button>
+                        
+                    </div>
+
+                </div>
+                
+                
+            </form>
+
+            <div class="vertical-line"></div>
+
+            <form class="form login-session" action="/session/login" method="post">
+                
+                <div class="input-wrapper">
+
+                    <label for="sessionName">Nome da sessão</label>
+
+                    <input name="sessionName" type="text" id="sessionName" placeholder="Insira o nome da sessão" minlength="6" maxlength="32" required>
+
+                </div>
+
+                <div class="input-wrapper">
+
+                    <label for="accessCode">Código de acesso</label>
+
+                    <input name="accessCode" type="text" id="sessionName" placeholder="Código de 6 digitos" minlength="6" maxlength="6" required>
+
+                </div>
+                
+                <button class="btn-grad">
+                    
+                    Acessar sessão existente
+
+                    <i class="ph-bold ph-arrow-right"></i>
+                    
+                </button>
+                
+            </form>
+            
+        </div>
+        
+    </div>
+    
+</main>

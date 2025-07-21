@@ -1,0 +1,176 @@
+<main>
+
+    <input type="hidden" id="remainingTime" name="remainingTime" value="{{remainingTime}}">
+    <input type="hidden" id="thresholdTime" name="thresholdTime" value="{{thresholdTime}}">
+    <input type="hidden" id="sessionId" value="{{sessionId}}">
+    
+    <div class="data-container">
+
+        <div class="container-box">
+
+            <img class="qrcode" src="/qrcode?text=http://192.168.15.54:9091/session/{{sessionId}}" alt="" srcset="">
+
+            <div class="data-wrapper">
+                        
+                <span>Nome da sessão:</span>
+
+                <p class="info">{{session.sessionName}}</p>
+                
+                <span>Código da sessão:</span>
+                
+                <p class="info">{{session.accessCode}}</p>
+
+                <span>Encerra em:</span>
+
+                <div class="info time-wrapper">
+
+                    <i class="ph-bold ph-clock"></i>
+
+                    <p id="expired-time"></p>
+                    
+                </div>
+
+            </div>
+            
+        </div>
+        
+        <div class="logo">CHRONOS file</div>
+        
+    </div>
+
+    <section id="file-section">
+
+        <form class="wrapper" action="/file" method="post" enctype="multipart/form-data">
+
+            <div class="upload-container">
+
+                <p>Transferência de Arquivo(s)</p>
+                
+                <div class="transfer-box">
+
+                    <i class="ph-bold ph-upload-simple"></i>
+
+                    <p>Solte seus arquivos aqui ou clique em upload</p>
+
+                    <span>Suporte para todos os tipos de arquivos até 100mb cada</span>
+
+                    <input id="file-input" name='file' type="file">
+                    <input type="hidden" name="sessionId" value="{{sessionId}}">
+                    
+                    
+                </div>
+            
+                <button type="submit">Upload</button>
+
+            </div>
+            
+        </form>
+        
+        <div class="wrapper">
+
+            <div class="slide-bar">
+
+                <div class="box active">
+
+                    <i class="ph-thin ph-clock"></i>
+
+                    <p>Uploads Ativos (0)</p>
+                    
+                </div>
+
+                <div class="box">
+
+                    <i class="ph-thin ph-cloud-check"></i>
+
+                    <p>Uploads Completos (1)</p>
+                    
+                </div>
+            
+            </div>
+
+            <div class="files-container">
+
+               <ul class="file-list">
+
+                {{#each file}}
+
+                    <li onclick="javascript:location.href='/file/{{this.savedName}}/{{this.originalname}}'" class="file-box">
+                        
+                        <p>{{this.originalname}}</p>
+
+                        <i class="ph-thin ph-download-simple"></i>
+                    
+                    </li>
+
+               
+               {{/each}}
+                
+               </ul>
+                
+            </div >
+            
+        </div>
+        
+    </section>
+    
+</main> 
+
+<script>
+
+    const fileInput = document.querySelector("#file-input")
+    const sessionId = document.querySelector("#sessionId").value
+
+    fileInput.addEventListener("change", (e) => {
+
+        const file = e.target.files[0]
+
+        const p = document.querySelector(".transfer-box p")
+        const span = document.querySelector(".transfer-box span")
+
+        p.textContent = file.name
+        span.textContent = (file.size / (1024 * 1024 * 1024).toFixed(6)) + "mb"
+
+        console.log(file)
+        
+    })
+    
+    let remainingTime = document.querySelector("#remainingTime").value
+    let thresholdTime = document.querySelector("#thresholdTime").value
+    thresholdTime = new Date(thresholdTime)
+
+    const expiredTimeDisplay = document.querySelector("#expired-time")
+
+    function formatarTempo(ms) {
+
+        const totalSeg = Math.floor(ms / 1000);
+        const min = String(Math.floor(totalSeg / 60)).padStart(2, "0");
+        const seg = String(totalSeg % 60).padStart(2, "0");
+
+        return `${min}:${seg}`;
+        
+    }
+    
+    const interval = setInterval(()=>{
+
+        remainingTime -= 1000
+
+        expiredTimeDisplay.textContent = formatarTempo(remainingTime)
+
+        if(remainingTime < 0){
+            
+            clearInterval(interval)
+
+            expiredTimeDisplay.textContent = "Sessão encerrada."
+
+            setTimeout(()=>{
+
+                location.href = location.pathname
+                
+            }, 1000)
+            
+        }
+        
+    }, 1000)
+
+
+</script>
