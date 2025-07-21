@@ -5,7 +5,7 @@ import mainRoutes from "./routes/main.route.js"
 import app from "./config/express.config.js";
 import setupHandlebars from "./config/handlebars.config.js";
 import dotenv from "dotenv"
-import setupBodyParser from "./config/bodyparser.config.js";
+import setupBodyParser from "./config/bodyParser.config.js";
 import setupGeneralSettings from "./config/generalSettings.config.js";
 import setupMongoose from "./config/mongoose.config.js";
 
