@@ -8,7 +8,7 @@
 
         <div class="container-box">
 
-            <img class="qrcode" src="/qrcode?text=http://192.168.15.54:9091/session/{{sessionId}}" alt="" srcset="">
+            <img class="qrcode" alt="" srcset="">
 
             <div class="data-wrapper">
                         
@@ -170,5 +170,10 @@
         
     }, 1000)
 
+    const qrcode = document.querySelector(".qrcode")
 
+    qrcode.src = `/qrcode?text=${location.href}`
+    
+    console.log(qrcode)
+    
 </script>
