@@ -385,6 +385,17 @@ section#file-section .wrapper:nth-last-child(1){
         width: 100%;
     }
     
+    .input-wrapper .wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        
+        button{
+            width: auto;
+        }
+                
+    }
+    
 }
 
 
