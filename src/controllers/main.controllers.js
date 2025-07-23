@@ -1,3 +1,11 @@
+// Amazon S3 config
+import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { s3 } from "../config/s3Client.config.js";
+
+const storage = multer.memoryStorage()
+const upload = multer({storage}).single('file')
+
+// 
 import Session from "../models/Session.model.js"
 import File from "../models/File.model.js";
 
@@ -6,6 +14,7 @@ import path from "path";
 import { fileURLToPath } from "url"
 import { dirname } from "path"
 import { generateQrBuffer } from "../helpers/qrcodeGenerator.helper.js";
+import { generateTemporaryURL } from "../helpers/generateTemporaryURL.helper.js";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -32,8 +41,6 @@ export const getSession = async (req, res) => {
         const thresholdTime = new Date(session.createdAt.getTime() + 900000)
         const remainingTime = thresholdTime.getTime() - Date.now()
 
-        console.log("Tempo Limite: " + thresholdTime + "Tempo restante: " + remainingTime)
-        
         res.render("session", {session, sessionId: req.params.sessionId, file: files, remainingTime, thresholdTime})
         
     } catch (error) {
@@ -97,19 +104,6 @@ export const postSessionLogin = async (req, res) => {
 
 export const postFile = (req, res) => {
 
-    const storage = multer.diskStorage({
-
-        destination: (req, file, cb) => {
-            cb(null, `${path.join(__dirname, "../../public/uploads")}`)
-        },
-        
-        filename: (req, file, cb) => {
-            cb(null, Date.now() + path.extname(file.originalname))
-        }
-    })
-
-    const upload = multer({storage}).single('file')
-
     upload(req, res, async (err) => {
 
         if(err instanceof multer.MulterError){
@@ -120,35 +114,68 @@ export const postFile = (req, res) => {
 
         }
 
-        // Save file datas on db
+        try {
 
-        const newFile = ({
-            originalname: req.file.originalname,
-            savedName: req.file.filename,
-            fileSize: req.file.size,
-            path: req.file.path,
-            sessionId: req.body.sessionId
-        })
+            console.log(req.file)
 
-        const file = await new File(newFile).save()
+            const uniqueName = `${Date.now()}_${req.file.originalname}`
+
+
+            const command = new PutObjectCommand({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: uniqueName,
+                Body: req.file.buffer,
+                ContentType: req.file.mimetype,
+            })
+
+            await s3.send(command)
+
+            const s3Url = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${uniqueName}`
+            
+            // Save file datas on db
+
+            const newFile = ({
+                originalname: req.file.originalname,
+                savedName: uniqueName,
+                fileSize: req.file.size,
+                path: s3Url,
+                sessionId: req.body.sessionId
+            })
+
+            const file = await new File(newFile).save()
+            
+            req.flash("success_msg", "Uploado concluído com sucesso!")
+            res.redirect(`session/${req.body.sessionId}`)
+            
+            
+            
+        }catch(err){
+
+            console.log(err)
+            
+        }
         
-        req.flash("success_msg", "Uploado concluído com sucesso!")
-        res.redirect(`session/${req.body.sessionId}`)
         
     })
     
 }
 
-export const getFile = (req, res) => {
+export const getFile = async (req, res) => {
 
-    const filePath = path.join(__dirname, "../../public/uploads/", req.params.fileName) 
+    const {filename} = req.params
 
-    res.download(filePath, req.params.originalname, (err) => {
+    try {
 
-        console.log(err)
+        const url = await generateTemporaryURL(filename, 300)
+        return res.redirect(url)
+        
+        
+    } catch (error) {
 
-    })
-    
+        console.log("Erro ao realizar o download do arquivo: " + error)
+        
+    }
+
 }
 
 // QR CODE

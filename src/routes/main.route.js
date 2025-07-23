@@ -12,7 +12,7 @@ router.post("/session/login", postSessionLogin)
 
 // File route
 router.post("/file", postFile)
-router.get("/file/:fileName/:originalname", getFile)
+router.get("/file/:filename/:originalname", getFile)
 
 // QR CODE
 router.get("/qrcode", getQRCode)
