@@ -2,12 +2,12 @@ import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3 } from "../config/s3Client.config.js";
 
-export const generateTemporaryURL = async (key, expiresIn = 300) => {
+export const generateTemporaryURL = async (key, originalname, expiresIn = 300) => {
 
     const command = new GetObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: key,
-        ResponseContentDisposition: `attachment; filename="${key}"`
+        ResponseContentDisposition: `attachment; filename="${encodeURIComponent(originalname)}"`
     })
 
     return await getSignedUrl(s3, command, {expiresIn})

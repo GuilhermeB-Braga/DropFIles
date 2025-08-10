@@ -20,13 +20,13 @@ setupMongoose(process.env.DB_USER, process.env.DB_PASSWORD)
 
 // Jobs
 
-// setInterval(()=>{
+setInterval(()=>{
 
-//     checkExpiresDocs().catch( err => console.log(err))
+    checkExpiresDocs().catch( err => console.log(err))
 
-//     console.log("Time Checked.")
+    console.log("Time Checked.")
     
-// }, 10000)
+}, 10000)
 
 // Server
 

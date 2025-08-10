@@ -162,13 +162,13 @@ export const postFile = (req, res) => {
 
 export const getFile = async (req, res) => {
 
-    const {filename} = req.params
+    const {filename, originalname} = req.params
 
+    
     try {
 
-        const url = await generateTemporaryURL(filename, 300)
+        const url = await generateTemporaryURL(filename, originalname, 300)
         return res.redirect(url)
-        
         
     } catch (error) {
 

@@ -1,10 +1,13 @@
-<main>
+
+<main id="session">
 
     <input type="hidden" id="remainingTime" name="remainingTime" value="{{remainingTime}}">
     <input type="hidden" id="thresholdTime" name="thresholdTime" value="{{thresholdTime}}">
     <input type="hidden" id="sessionId" value="{{sessionId}}">
     
     <div class="data-container">
+
+        <div onclick="location.href='/'" class="logo">Dro<span>pp</span>e</div>
 
         <div class="container-box">
 
@@ -30,15 +33,23 @@
                     
                 </div>
 
+                <button onclick="javascript:location.href='/'">Sair da sessão</button>
+
             </div>
+            
             
         </div>
         
     </div>
 
+    <div class="loader none"></div>
+
+    <div class="overlay none"></div>
+
     <section id="file-section">
 
-        <form class="wrapper" action="/file" method="post" enctype="multipart/form-data">
+
+        <form id="file-form" class="wrapper" action="/file" method="post" enctype="multipart/form-data">
 
             <div class="upload-container">
 
@@ -70,15 +81,15 @@
 
                 <div class="box active">
 
-                    <i class="ph-thin ph-clock"></i>
+                    <i class="ph-bold ph-clock"></i>
 
-                    <p>Uploads Ativos (0)</p>
+                    <p>Uploads Ativos (<span id="active-value">0</span>)</p>
                     
                 </div>
 
                 <div class="box">
 
-                    <i class="ph-thin ph-cloud-check"></i>
+                    <i class="ph-bold ph-cloud-check"></i>
 
                     <p>Uploads Completos (1)</p>
                     
@@ -100,7 +111,6 @@
                     
                     </li>
 
-               
                {{/each}}
                 
                </ul>
@@ -115,6 +125,10 @@
 
 <script>
 
+    const files = document.querySelectorAll(".file-list li")
+    
+    const activeFiles = document.querySelector("#active-value").textContent = files.length
+    
     const fileInput = document.querySelector("#file-input")
     const sessionId = document.querySelector("#sessionId").value
 
@@ -126,7 +140,7 @@
         const span = document.querySelector(".transfer-box span")
 
         p.textContent = file.name
-        span.textContent = (file.size / (1024 * 1024 * 1024).toFixed(6)) + "mb"
+        span.textContent = formatBits(file.size)
 
         console.log(file)
         
@@ -174,6 +188,25 @@
 
     qrcode.src = `/qrcode?text=${location.href}`
     
-    console.log(qrcode)
+    const fileForm = document.querySelector("#file-form")
+
+    fileForm.addEventListener("submit", (e)=>{
+        e.preventDefault()
+        document.querySelector(".loader").classList.remove("none")
+        document.querySelector(".overlay").classList.remove("none")
+        fileForm.submit()
+    })
+    
+    function formatBits(bits){
+        const units = ['bits', 'Kb','Mb', 'Gb', 'Tb']
+        let index = 0
+
+        while (bits >= 1000 && index < units.length - 1){
+            bits /= 1000
+            index++
+        }
+
+        return bits.toFixed(2) + ' ' + units[index]
+    }
     
 </script>

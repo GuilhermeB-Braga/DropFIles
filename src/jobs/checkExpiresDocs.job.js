@@ -1,7 +1,7 @@
 import Session from "../models/Session.model.js";
 import File from "../models/File.model.js";
 
-import fs from "fs/promises"
+import { deleteFileFromS3 } from "../helpers/deleteFileFromS3.helper.js";
 
 export const checkExpiresDocs = async () => {
 
@@ -20,7 +20,7 @@ export const checkExpiresDocs = async () => {
             
             try {
 
-                await fs.unlink(file.path)
+                await deleteFileFromS3(file.savedName)
                 
             } catch (error) {
 
