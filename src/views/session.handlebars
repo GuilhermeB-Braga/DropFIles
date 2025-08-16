@@ -1,46 +1,68 @@
+<header id="session-header">
+
+    <div onclick="location.href='/'" class="logo">Dro<span>pp</span>e</div>
+
+    <div id="session-data">
+        
+        <img class="qrcode none" alt="" srcset="">
+
+        <div class="data-wrapper">
+
+            <button id="showQrCode" class="square-btn">
+
+                <i class="ph ph-qr-code"></i>
+            
+            </button>
+            
+                    
+            <div class="data">
+
+                <span>Nome da sessão:</span>
+
+                <p class="info">{{session.sessionName}}</p>
+                
+            </div>
+            
+            <div class="data">
+
+                <span>Código da sessão:</span>
+            
+                <p class="info">{{session.accessCode}}</p>
+                
+            </div>
+
+
+            <div class="data">
+
+                <span>Encerra em:</span>
+
+                <div class="info time-wrapper">
+
+                <i class="ph-bold ph-clock"></i>
+
+                <p id="expired-time"></p>
+                
+            </div>
+                
+            </div>
+
+            <button onclick="javascript:location.href='/'">
+
+                Sair da sessão
+            
+            </button>
+
+        </div>
+            
+    </div>
+    
+</header>
 
 <main id="session">
 
     <input type="hidden" id="remainingTime" name="remainingTime" value="{{remainingTime}}">
     <input type="hidden" id="thresholdTime" name="thresholdTime" value="{{thresholdTime}}">
     <input type="hidden" id="sessionId" value="{{sessionId}}">
-    
-    <div class="data-container">
-
-        <div onclick="location.href='/'" class="logo">Dro<span>pp</span>e</div>
-
-        <div class="container-box">
-
-            <img class="qrcode" alt="" srcset="">
-
-            <div class="data-wrapper">
-                        
-                <span>Nome da sessão:</span>
-
-                <p class="info">{{session.sessionName}}</p>
-                
-                <span>Código da sessão:</span>
-                
-                <p class="info">{{session.accessCode}}</p>
-
-                <span>Encerra em:</span>
-
-                <div class="info time-wrapper">
-
-                    <i class="ph-bold ph-clock"></i>
-
-                    <p id="expired-time"></p>
-                    
-                </div>
-
-                <button onclick="javascript:location.href='/'">Sair da sessão</button>
-
-            </div>
-            
-            
-        </div>
-        
-    </div>
 
     <div class="loader none"></div>
 
@@ -207,6 +229,18 @@
         }
 
         return bits.toFixed(2) + ' ' + units[index]
+    }
+
+    const qrCodeBtn = document.querySelector("#showQrCode")
+
+    qrCodeBtn.addEventListener("click", showQrCode)
+
+    function showQrCode(){
+
+
+        qrCodeBtn.classList.toggle("active")
+        qrcode.classList.toggle("none")
+        
     }
     
 </script>

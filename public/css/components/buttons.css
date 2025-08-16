@@ -1,0 +1,40 @@
+button{background-image: linear-gradient(to right, #F7971E 0%, #FFD200  51%, #F7971E  100%)}
+button{
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    display: block;
+    color: #292929;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+button:hover{
+    background-position: right top;
+}
+
+button.square-btn{
+    all: unset;
+    background-color: #313131;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .23s ease-in-out;
+
+    i{
+        font-size: 2rem;
+    }
+    
+}
+
+button.square-btn:hover,
+button.square-btn.active{
+    background-color: #292929;
+    color: #FFD200;
+}

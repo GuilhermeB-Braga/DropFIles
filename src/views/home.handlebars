@@ -37,9 +37,9 @@
             
             <div class="input-wrapper">
 
-                <label for="sessionName">Nome da sessão</label>
+                <label for="sessionName2">Nome da sessão</label>
 
-                <input name="sessionName" type="text" id="sessionName" placeholder="Insira o nome da sessão" minlength="6" maxlength="32" required>
+                <input name="sessionName" type="text" id="sessionName2" placeholder="Insira o nome da sessão" minlength="6" maxlength="32" required>
 
             </div>
 
@@ -47,7 +47,7 @@
 
                 <label for="accessCode">Código de acesso</label>
 
-                <input name="accessCode" type="text" id="sessionName" placeholder="Código de 6 digitos" minlength="6" maxlength="6" required>
+                <input name="accessCode" type="text" id="accessCode" placeholder="Código de 6 digitos" minlength="6" maxlength="6" required>
 
             </div>
             
@@ -65,3 +65,35 @@
     </div>
     
 </main>
+
+<script>
+
+const accessCode = document.querySelector("#accessCode")
+const sessionName = document.querySelector("#sessionName")
+const sessionName2 = document.querySelector("#sessionName2")
+
+accessCode.addEventListener("input", (e) => {
+
+    accessCode.value = e.target.value.toUpperCase()
+    
+})
+
+sessionName.addEventListener("change", (e)=>{
+
+    sessionName.value = clearSpaces(e.target.value)
+    
+})
+
+sessionName2.addEventListener("change", (e)=>{
+
+    sessionName2.value = clearSpaces(e.target.value)
+
+})
+
+function clearSpaces(str){
+
+    return str.trim()
+    
+}
+
+</script>

@@ -1,12 +1,12 @@
+/* ============ Session Header ============ */
 
-main#session{
+header#session-header{
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
-    padding: 2rem 4rem;
+    justify-content: space-between;
+    padding: 2rem 3rem 4rem 3rem;
 }
+
 
 .logo{
     font-size: 2.6rem;
@@ -19,33 +19,120 @@ main#session{
     span{
         font-weight: 900;
     }
-    
-    
+
 }
 
 .logo:hover{
     font-weight: 900;
+}
 
+/* ---- Session Data */
+
+#session-data{
+    display: flex;
+}
+
+.data-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    font-size: 1.4rem;
+
+    span{
+        color: #c9c9c9ab;
+        font-weight: 400;
+    }
+
+    .info{
+        color: rgb(247, 247, 247);
+    }
+    
+}
+
+.data-wrapper .data{
+    display: flex;
+    gap: .1rem;
+    flex-direction: column;
+
+     i{
+        color: rgb(226, 64, 0);
+    }
+    
+}
+
+img.qrcode{
+    border-radius:2px;
+    width: 20rem;
+    height: auto;
+    transition: all .23s ease-in-out;
+    border: 5px solid #1d1d1d;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    box-shadow: .5rem .5rem 3rem rgba(0, 0, 0, 0.356);
+}
+
+.session-data{
+    font-size: 1.4rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.time-wrapper{
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+@media (max-width:847px) {
+    header#session-header{
+        flex-direction: column;
+        gap: 4rem;
+    }
+    
+}
+
+@media (max-width:597px){
+
+    img.qrcode{
+        display: block;
+        height: 100%;
+        position: initial;
+    }
+
+    #session-data{
+        align-items: center;
+        width: max-content;
+        background-color: #1f1f1f;
+        box-shadow: .5rem .5rem 2rem rgba(0, 0, 0, 0.39);
+        padding: 2rem;
+        border-radius: 4rem;
+        gap: 2rem;
+        
+        #showQrCode{
+            display: none;
+        }
+        
+    }
+
+    .data-wrapper{
+        flex-direction: column;
+        align-items: baseline;
+        gap: 1rem;
+    }
+    
+}
+
+/* ============ Main Session ============ */
+
+main#session{
+    height: 100%;
+    padding: 2rem 4rem;
 }
 
 /* Session Page */
-
-.title-wrapper{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.title2{
-    font-size: 2rem;
-    font-weight: 400;
-}
-
-.title3{
-    font-size: 1.6rem;
-    font-weight: 300;
-    color: #afafaf;
-}
 
 .upload-container{
     height: 100%;
@@ -132,8 +219,7 @@ main#session{
 .files-container{
     margin-top: 2rem;
     width: 100%;
-    min-height: 40vh;
-    max-height: 55vh;
+    height: 55vh;
     overflow-y: auto;
     border-radius: 3.5rem;
     border: 1px solid var(--line-color);
@@ -141,6 +227,25 @@ main#session{
     gap: 2rem;
     display: flex;
     flex-direction: column;
+}
+
+.files-container::-webkit-scrollbar{
+    width: 0.4rem;
+    height: 0.4rem;
+    cursor: none;
+}
+
+.files-container::-webkit-scrollbar-track{
+    background: transparent;
+    padding: 2px;
+    
+}
+
+.files-container::-webkit-scrollbar-thumb{
+    background: rgba(255, 255, 255, 0.329);
+    border-radius: 8px;
+    cursor: none;
+
 }
 
 section#file-section{
@@ -195,4 +300,37 @@ section#file-section .wrapper:nth-last-child(1){
     background-color: #3d3d3d;
     border-radius: 6px;
     border-color: transparent;
+}
+
+
+/* ============ Session Media Queries ============ */
+
+@media (max-width:1078px) {
+
+    main#session{
+        padding: 2rem;
+    }
+
+    section#file-section{
+        flex-direction: column;
+    }
+
+    section#file-section .wrapper:nth-last-child(1){
+        width: 100%;
+    }
+
+    .slide-bar{
+        font-size: 1.2rem;
+        border-radius: 16px;
+        
+        .box{
+            padding: 1rem;
+            border-radius: 16px;
+        }
+    }
+
+    .files-container{
+        max-height: 100%;
+    }
+    
 }

@@ -1,29 +1,16 @@
-
-/* Titles */
-
-.title{
-    font-size: 2.6rem;
-}
-
-.title span{
-    color: #FFD200;
-    font-style: italic;
-}
-
-/* Home */
-
 main#home{
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 6rem;
 }
+
+/* ============ SVG Illustration ============ */
 
 .main-image{
     height: auto;
     width: 40%;
 }
+
+/* ============ Main Container ============ */
 
 .container{
     min-height: 80vh;
@@ -31,99 +18,6 @@ main#home{
     padding: 2rem;
     display: flex;
     flex-direction: column;
-}
-
-.form{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.forms-wrapper{
-    display: flex;
-    flex-direction: column;
-}
-
-.input-wrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-}
-
-.input-wrapper .wrapper{
-    display: flex;
-    gap: 1rem;
-
-    input{
-        flex: 1;
-    }
-
-    button{
-        width: fit-content;
-    }
-    
-}
-
-label{
-    color: rgb(187, 187, 187);
-}
-
-input,
-button{
-    all: unset;
-    background-color: rgba(0, 0, 0, 0.199);
-    border-radius: 12px;
-    height: 3.2rem;
-    padding: .4rem 1.2rem;
-    transition: all .23s ease-in-out;
-    color: inherit;
-}
-
-input{
-    border: 1px solid transparent;
-}
-
-button,
-label,
-input{
-    cursor: pointer;
-}
-
-
-
-button{background-image: linear-gradient(to right, #F7971E 0%, #FFD200  51%, #F7971E  100%)}
-button{
-    text-align: center;
-    transition: 0.5s;
-    background-size: 200% auto;
-    display: block;
-    color: #292929;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .6rem;
-}
-
-button:hover{
-    background-position: right top;
-}
-
-input:focus{
-    border: 1px solid var(--primary-color);
-    outline: .32rem solid rgba(255, 255, 255, 0.13);
-    outline-offset: .5px;
-}
-
-.container-title{
-    font-weight: 300;
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 2.6rem;
-}
-
-.title{
-    font-weight: 500;
-    margin-bottom: 1.8rem;
 }
 
 .vertical-line{
@@ -134,6 +28,8 @@ input:focus{
     border-radius: 20px;
     position: relative;
 }
+
+/* ============ Home Media Queries ============ */
 
 @media (max-width:1078px) {
 
@@ -148,5 +44,4 @@ input:focus{
         width: auto;
     }
 
- 
 }
