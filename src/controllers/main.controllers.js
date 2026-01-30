@@ -202,3 +202,11 @@ export const getQRCode = async (req, res) => {
     }
     
 }
+
+// Docs
+
+export const getDocs = (req, res) => {
+
+    res.render("docs")
+    
+}

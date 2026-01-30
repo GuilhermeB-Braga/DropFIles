@@ -1,0 +1,32 @@
+main#docs-session{
+    padding: 3rem;
+    gap: 2rem;
+}
+
+.svg-image{
+    width: 40%;
+    height: auto;
+}
+
+.content{
+    flex: 1;
+}
+
+.title{
+    font-size: 3.2rem;
+}
+
+.title2{
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.paragraph{
+    font-size: 1.6rem;
+    font-weight: 200;
+    margin-top: 1rem;
+}
+
+.topic{
+    margin-top: 2rem;
+}

@@ -1,9 +1,10 @@
 import express from "express"
 const router = express.Router()
 
-import { getFile, getQRCode, getSession, home, postFile, postSession, postSessionLogin } from "../controllers/main.controllers.js"
+import { getDocs, getFile, getQRCode, getSession, home, postFile, postSession, postSessionLogin } from "../controllers/main.controllers.js"
 
 router.get("/", home)
+router.get("/docs", getDocs)
 
 // Session routes
 router.get("/session/:sessionId", getSession)
